@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Analytics.js Source Test</title>
+    <script>
+        // Segment
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("button").click(function () {
+                $("p").toggle(1000);
+            });
+        });
+    </script>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <section id="contact">
+        <h1>What is your favorite place to travel?</h1>
+        <form method="POST" name="travel" onsubmit="identify(event)" action="/thankyou.html">
+            What is your favorite travel destination?
+            <input name="destination" required="" size="81" type="text" />
+            <br><br><br>
+            Any recommendations (cool things to do, places to visit or restaurants to eat)?
+            <br><br>
+            <textarea cols="81" name="details" required="" rows="10">
+    </textarea>
+            <br><br>
+            Name: <input name="fullname" required="" size="75" type="text" />
+            <br><br>
+            Email: <input name="email" required="" size="75" type="email" />
+            <br><br>
+            Account Status <input name="accountStatus" required="" size="75" type="text" />
+            <br><br>
+            <input name="submit" type="submit" value="submit" />
+
+        </form>
+    </section>
+    <script type="text/javascript">
+        function identify(e) {
+            e.preventDefault();
+            var form = e.target;
+            var accountStatus = form["accountStatus"].value;
+            var email = form["email"].value;
+            var fullname = form["fullname"].value;
+            var destination = form["destination"].value;
+            var details = form["details"].value;
+            var user = {
+                email: email,
+                name: fullname,
+                destination: destination,
+                details: details
+            };
+            analytics.identify('2222-device', {
+                email: email,
+                name: fullname,
+                accountStatus: 'TEST_INLINE'
+            });
+            analytics.track('destination submitted', user, function () {
+                window.location.href = "";
+            });
+            analytics.track('new track call', user, function () {
+                window.location.href = "";
+            });
+        }
+    </script>
+</body>
+
+</html>
